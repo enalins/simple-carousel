@@ -70,7 +70,7 @@ if(options.dots){
 } 
 
 
-//SWIPE
+//SWIPE ACTION
 if(options.drag){
   function dragElement(elmnt) {
     var pos1 = 0, pos3 = 0;
@@ -109,7 +109,6 @@ if(options.drag){
       // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
-      console.log('initial x position: '+pos3, 'final x position: '+pos1)
 
       // calculates if it goes to the next slide or the previous one
       if(pos1 > pos3){
