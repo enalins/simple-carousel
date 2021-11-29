@@ -2,11 +2,11 @@
 const options = {
   dots: true,
   autoplay: {
-    play: true,
+    play: false,
     time: 3 //seconds
   },
   arrows: true,
-  drag: true
+  drag: false
 }
 
 //FIRST SETUP
@@ -38,6 +38,10 @@ if(options.arrows){
 
 //DOTS CONFIG
 if(options.dots){
+  let dotContainer = document.createElement('div');
+  dotContainer.classList.add('dot-container')
+  myCarousel.appendChild(dotContainer);
+
   function createDots (slidesNum){
     //create the dots
     for(i=1; i <= slidesNum; i++){
@@ -47,7 +51,7 @@ if(options.dots){
       dot.classList.add('dot');
   
       dots.push(dot);
-      myCarousel.querySelector('.dot-container').appendChild(dot);
+      dotContainer.appendChild(dot);
     }
   
     //the first dot active
