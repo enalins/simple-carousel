@@ -6,7 +6,7 @@ const options = {
     time: 3 //seconds
   },
   arrows: true,
-  drag: false
+  drag: true
 }
 
 //FIRST SETUP
@@ -68,6 +68,48 @@ if(options.dots){
 
   createDots(slides.length)
 } 
+
+
+//SLIDES DRAG EVENTS
+if(options.drag){
+  function dragElement(elmnt) {
+    var pos1 = 0, pos3 = 0;
+    elmnt.children[0].onmousedown = dragMouseDown;
+    
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get the mouse cursor position at startup:
+      pos3 = e.clientX;
+
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+      document.onmouseup = closeDragElement;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate the new cursor position:
+      pos1 = e.clientX;
+    }
+
+    function closeDragElement() {
+      // stop moving when mouse button is released:
+      document.onmouseup = null;
+      document.onmousemove = null;
+
+      // calculates if it goes to the next slide or the previous one
+      if(pos1 > pos3){
+        showSlides(slideIndex -= 1)
+      }else{
+        showSlides(slideIndex += 1)
+      }
+    }
+  }
+  
+  dragElement(myCarousel);
+}
 
 
 //SLIDES CONFIG
