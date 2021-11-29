@@ -87,3 +87,7 @@ body {padding: 5rem 0 0; background: linear-gradient(to bottom, #2d143c, #000 10
 
 footer {margin-top: 3rem; padding: 0.5rem 15px; text-align: center; color: #fff}
   footer a {color: #ca41ca}
+
+@media screen and (max-width: 700px){
+  .prev, .next {display: none}
+}

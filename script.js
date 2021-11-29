@@ -70,34 +70,46 @@ if(options.dots){
 } 
 
 
-//SLIDES DRAG EVENTS
+//SWIPE
 if(options.drag){
   function dragElement(elmnt) {
     var pos1 = 0, pos3 = 0;
-    elmnt.children[0].onmousedown = dragMouseDown;
+    elmnt.onmousedown = dragMouseDown;
+    elmnt.addEventListener('touchstart', dragMouseDown);
     
     function dragMouseDown(e) {
       e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
-      pos3 = e.clientX;
+      if(e.type == 'touchstart'){
+        pos3 = e.touches[0].clientX;
+      }else{
+        pos3 = e.clientX;
+      }
 
       // call a function whenever the cursor moves:
       document.onmousemove = elementDrag;
+      elmnt.addEventListener('touchmove', elementDrag);
       document.onmouseup = closeDragElement;
+      elmnt.addEventListener('touchend', closeDragElement);
     }
 
     function elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
       // calculate the new cursor position:
-      pos1 = e.clientX;
+      if(e.type == 'touchmove'){
+        pos1 = e.touches[0].clientX;
+      }else{
+        pos1 = e.clientX;
+      }
     }
 
     function closeDragElement() {
       // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
+      console.log('initial x position: '+pos3, 'final x position: '+pos1)
 
       // calculates if it goes to the next slide or the previous one
       if(pos1 > pos3){
